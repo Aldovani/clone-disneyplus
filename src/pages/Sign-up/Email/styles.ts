@@ -6,9 +6,23 @@ export const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   flex-direction: column;
   color: #f9f9f9;
+  position: relative;
+
+  .link {
+    position: absolute;
+    right: 1.5rem;
+    top: 4rem;
+    color: #fff;
+    text-decoration: none;
+    color: #c0c0c0;
+    font-weight: 900;
+    transition: 0.3s;
+    &:hover {
+      color: #fff;
+    }
+  }
 
   @media (max-width: 500px) {
     padding: 0 1rem;
@@ -22,12 +36,13 @@ export const Wrapper = styled.div`
   background: rgb(26, 29, 41);
   min-width: 355px;
   gap: 2rem;
+
   p {
-    color: #7d7e83;
-    .link {
-      color: #f9f9f9;
-      text-decoration: none;
-    }
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.25px;
+    color: #cacaca;
+    padding-bottom: 0.5rem;
   }
 
   @media (max-width: 500px) {
@@ -43,7 +58,6 @@ export const Form = styled.form`
   gap: 2.5rem;
 
   width: 100%;
-  
 `;
 export const Image = styled.img`
   width: 160px;

@@ -60,7 +60,7 @@ const Home: React.FC = () => {
             <img src="/cloneWars.jpg" alt="3" />
             <img src="/forkyQuestion.jpg" alt="4" />
             <img src="/WandaVision.jpg" alt="5" />
-            <img src="/soul.jpg" alt="6" />
+            <img src="/Soul.jpg" alt="6" />
             <img src="/RogueTrip.jpg" alt="7" />
             <img src="/phinFerb.jpg" alt="8" />
             <img src="/HSM.jpg" alt="9" />
