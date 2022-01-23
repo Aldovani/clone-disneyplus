@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background: rgb(26, 29, 41);
-  width: 100%;
+ min-height:100vh ;
 
   display: flex;
   align-items: center;
@@ -39,7 +39,7 @@ export const Form = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1rem;
 
   width: 100%;
   max-width: 450px;
@@ -64,3 +64,10 @@ export const Button = styled.button`
   font-weight: 900;
   text-transform: uppercase;
 `;
+
+export const Error = styled.div`
+width: 100%;
+color: #ff554c;
+font-size: 1rem;
+line-height: 18px;
+`

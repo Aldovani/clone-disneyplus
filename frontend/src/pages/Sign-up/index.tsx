@@ -1,44 +1,34 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../../services/api";
 import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
-import { Container, Image, Wrapper, Form, Button } from "./styles";
+import { Container, Image, Wrapper, Form, Button, Error } from "./styles";
+import { AuthContext } from "../../context/AuthContext";
+
+type RegisterResponse = {
+  email?: string;
+  userName?: string;
+  password?: string;
+};
 
 const SingUp: React.FC = () => {
+  const { registerUser } = useContext(AuthContext);
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [input, setInput] = useState({
-    type: "password",
-    icon: AiFillEyeInvisible,
-  });
-  const handleIcon = () => {
-    input.type === "password"
-      ? setInput({
-          type: "text",
-          icon: AiFillEye,
-        })
-      : setInput({
-          type: "password",
-          icon: AiFillEyeInvisible,
-        });
+  const [passwordShow, setPasswordShow] = useState(true);
+  const [errorResponse, setErrorResponse] = useState<RegisterResponse>();
+
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const result = await registerUser(email, password, userName);
+    console.log("aqui");
+    result ? setErrorResponse(result.errors) : setErrorResponse(undefined);
+    console.log(errorResponse);
   };
 
-  async function handleCreateUser(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const response = await api.post("/sing-up", {
-      email,
-      password,
-    }); 
-
-    console.log(response);
-    if(response.data.error){
-      console.log(response.data.error)
-    }
-
-  }
   return (
     <>
       <Container>
@@ -53,29 +43,54 @@ const SingUp: React.FC = () => {
 
           <h2>Crie sua conta</h2>
 
-          <Form
-            onSubmit={handleCreateUser}
-          >
+          <Form onSubmit={handleRegister}>
+            <Input
+              placeholder="Nome"
+              type="text"
+              onChange={(event) => setUserName(event.target.value)}
+              id="username"
+              className={errorResponse?.userName ? "error" : ""}
+            />
+               {errorResponse?.userName && (
+              <Error>{errorResponse?.userName}</Error>
+            )}
             <Input
               type="email"
               placeholder="Email"
               onChange={(event) => setEmail(event.target.value)}
-              required
+              id="email"
+              className={errorResponse?.email ? "error" : ""}
+              inputMode="email"
             />
-            <Input
-              placeholder="senha"
-              icon={input.icon}
-              type={input.type}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-              onClick={handleIcon}
-            />
-            <span>
-              Use no mínimo seis caracteres (com distinção entre maiúsculas e
-              minúsculas) com pelo menos um número ou caractere especial.
-            </span>
-
+               {errorResponse?.email && (
+              <Error>{errorResponse?.email}</Error>
+            )}
+            {passwordShow ? (
+              <Input
+                placeholder="senha"
+                id="senha"
+                icon={AiFillEye}
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                onClick={() => setPasswordShow(false)}
+                className={errorResponse?.password ? "error" : ""}
+              />
+            ) : (
+              <Input
+                placeholder="senha"
+                id="senha"
+                icon={AiFillEyeInvisible}
+                type="text"
+                className={errorResponse?.password ? "error" : ""}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                onClick={() => setPasswordShow(true)}
+              />
+            )}
+            {errorResponse?.password && (
+              <Error>{errorResponse?.password}</Error>
+            )}
             <Button type="submit">Criar</Button>
           </Form>
         </Wrapper>

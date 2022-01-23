@@ -6,8 +6,9 @@ const routes = express.Router()
 
 
 
-routes.post('/sing-up', UserControles.singUp)
-routes.post('/login', UserControles.login)
+routes.post('/sing-up', UserControles.registerUser)
+routes.post('/login', UserControles.loginUser)
+routes.post('/user', UserControles.checkUser)
 
 
 module.exports = routes

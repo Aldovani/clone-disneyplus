@@ -25,7 +25,7 @@ const CarrouselBanner: React.FC = () => {
 
     slidesToShow: 1,
     slidesToScroll: 1,
-    // autoplay: true,
+    autoplay: true,
   };
 
   return (
@@ -40,7 +40,8 @@ const CarrouselBanner: React.FC = () => {
                   id={image}
                   src={`assets/images/slider-${image}-logo.png`}
                   className={currentSlider === index ? "active" : ""}
-                  alt=""
+                  alt={`Logo ${image}`}
+                  title={`Logo ${image}`}
                 />
               </Link>
             </Wrap>

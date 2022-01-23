@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background: rgb(26, 29, 41);
-  /* padding: 5rem 0; */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -22,6 +22,7 @@ export const Container = styled.div`
       color: #fff;
     }
   }
+
 
   @media (max-width: 500px) {
     padding: 0 1rem;
@@ -50,20 +51,21 @@ export const Wrapper = styled.div`
   }
 `;
 export const Form = styled.form`
-height: 100%;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 2.5rem;
-  padding: 2rem 0;
+  gap: 1rem;
 
   max-width: 450px;
-  span{
- 
+  span {
     text-transform: none;
-    font-size: 20px;
+    font-size: 1rem;
+    line-height: 24px;
     color: #f9f9f9;
   }
+
 `;
 export const Image = styled.img`
   width: 160px;
@@ -84,3 +86,10 @@ export const Button = styled.button`
   font-weight: 900;
   text-transform: uppercase;
 `;
+
+export const Error = styled.div`
+width: 100%;
+color: #ff554c;
+font-size: 1rem;
+line-height: 18px;
+`

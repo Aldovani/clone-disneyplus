@@ -19,8 +19,12 @@ export const MyInput = styled.input`
   &:focus {
     border: 1px solid rgba(249, 249, 249, 0.3);
   }
+
+  &.error{
+    border: 1px solid #ff554c;
+  }
 `;
-export const Container = styled.div`
+export const Container = styled.label`
   position: relative;
   .icon {
     background-color: transparent;

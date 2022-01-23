@@ -1,39 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import {Footer} from '../../components/Footer'
+import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
-import { Container, Image, Wrapper, Form, Button } from "./styles";
+import { Container, Image, Wrapper, Form, Button, Error } from "./styles";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { api } from "../../services/api";
+import { AuthContext } from "../../context/AuthContext";
 
 const Login: React.FC = () => {
-
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [input, setInput] = useState({
-    type: "password",
-    icon: AiFillEyeInvisible,
-  });
-  const handleIcon = () => {
-    input.type === "password"
-      ? setInput({
-          type: "text",
-          icon: AiFillEye,
-        })
-      : setInput({
-          type: "password",
-          icon: AiFillEyeInvisible,
-        });
-  };
+  const [passwordShow, setPasswordShow] = useState(true);
+  const [error, setError] = useState("");
 
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const response = await api.post("/login", {
-      email,
-      password:password.trim(),
-    });
-
-    console.log(response.data);
+    const result = await login(email, password);
+    result ? setError(result) : setError("");
   }
 
   return (
@@ -45,37 +28,48 @@ const Login: React.FC = () => {
             alt="Logo Disney+"
           />
           <h2>Login</h2>
-          <Form
-            onSubmit={handleLogin}
-          >
+          <Form onSubmit={handleLogin}>
             <Input
               type="email"
               placeholder="Email"
               onChange={(event) => setEmail(event.target.value)}
-              required
+              className={error ? "error" : ""}
             />
-            <Input
-              placeholder="senha"
-              icon={input.icon}
-              type={input.type}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-              onClick={handleIcon}
-            />
-         
+            {passwordShow ? (
+              <Input
+                className={error ? "error" : ""}
+                placeholder="senha"
+                icon={AiFillEye}
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                onClick={() => setPasswordShow(false)}
+              />
+            ) : (
+              <Input
+                placeholder="senha"
+                icon={AiFillEyeInvisible}
+                type="text"
+                value={password}
+                className={error ? "error" : ""}
+                onChange={(event) => setPassword(event.target.value)}
+                onClick={() => setPasswordShow(true)}
+              />
+            )}
+
+            {error && <Error>{error}</Error>}
 
             <Button type="submit">Entra</Button>
+            <p>
+              Não tem Disney+?{" "}
+              <Link to="/sing-up" className="link">
+                Assine
+              </Link>
+            </p>
           </Form>
-          <p>
-            Não tem Disney+?{" "}
-            <Link to="/sing-up/email" className="link">
-              Assine
-            </Link>
-          </p>
         </Wrapper>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };

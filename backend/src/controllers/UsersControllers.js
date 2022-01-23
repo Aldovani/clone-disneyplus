@@ -1,51 +1,86 @@
 const Users = require("../models/Users");
 const Yup = require("yup");
+const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
+
+const signToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+};
+
+const createUserToken = async (user, code, req, res) => {
+  const token = signToken(user._id);
+
+  let cookieDateExpires = new Date();
+  cookieDateExpires.setDate(cookieDateExpires.getDate() + 30);
+
+  user.password = undefined;
+  res.status(code).json({
+    status: "success",
+    token,
+    data: {
+      user,
+    },
+  });
+};
 
 module.exports = {
-  async singUp(req, res) {
-    const { email, password } = req.body;
+  async registerUser(req, res) {
+    const { email, password, userName } = req.body;
 
-    const userExists = await Users.findOne({ email: email });
+    const userExists = await Users.findOne({ email: email.toLowerCase() });
 
     if (userExists) {
-      return res.json({ error: "Email already exists" });
+      return res.json(
+        { errors: { email: "Email already exists" } });
     }
 
     const data = {
       email,
       password,
+      userName,
     };
     const schema = Yup.object().shape({
       email: Yup.string().email().required(),
       password: Yup.string()
         .required()
-        .min(6, "Password is too short - should be 6 chars minimum.")
-        .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-          "Password can only contain Latin letters."
-        ),
+        .min(6, "Password is too short - should be 6 chars minimum."),
+      userName: Yup.string().required().min(4),
     });
 
     await schema.validate(data, { abortEarly: false });
     const user = await Users.create(data);
-
-    return res.status(200).json({message:"User created successfully", user});
+    createUserToken(user, 201, req, res);
   },
 
-  async login(req, res) {
+  async loginUser(req, res) {
     const { email, password } = req.body;
-
     const user = await Users.findOne({ email: email });
 
-    if (!user) {
-      return res.json({ message: "user not found" });
+    if (!user || user.password !== password) {
+      return res.json({ message: "email or password incorrect" });
+    }
+    user.password = undefined;
+
+    createUserToken(user, 200, req, res);
+  },
+
+  async checkUser(req, res, next) {
+    let currentUser;
+    if (req.body.token) {
+      const token = req.body.token;
+      const decoded = await promisify(jwt.verify)(
+        token,
+        process.env.JWT_SECRET
+      );
+      currentUser = await Users.findById(decoded.id);
+    } else {
+      currentUser = null;
     }
 
-    if (user.password !== password) {
-      return res.json({
-        message: "password is wrong",
-      });
-    }
-    return res.status(200).json({ user, message: "user found" });
+    currentUser.password = undefined;
+
+    res.status(200).send({ currentUser });
   },
 };
