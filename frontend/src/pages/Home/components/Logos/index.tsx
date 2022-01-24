@@ -26,13 +26,13 @@ export const Logos: React.FC = () => {
       id: 4,
       name: "starwars",
       logo: "/assets/images/viewers-starwars.png",
-      video: "/assets/videos/starwars.mp4",
+      video: "/assets/videos/star-wars.mp4",
     },
     {
       id: 5,
       name: "national",
       logo: "/assets/images/viewers-national.png",
-      video: "/assets/videos/national.mp4",
+      video: "/assets/videos/national-geographic.mp4",
     },
     {
       id: 6,

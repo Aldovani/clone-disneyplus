@@ -6,9 +6,10 @@ interface WrapType {
 }
 
 export const Container = styled.div`
+    margin: 15px 0 10px ;
   h4 {
-    padding: 10px 10px 0 10px;
-    margin: 15px 0 10px 0;
+    font-size: 1.5rem;
+    padding: 10px;
     color: #fff;
   }
 `;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../Button";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 import { Container, Logo, Navigation } from "./styles";
 
@@ -22,9 +22,11 @@ const Header: React.FC = () => {
         src="https://cannonball-cdn.bamgrid.com/assets/originals/logo-nopad.svg"
       />
       <Navigation>
-        <Button href="#Assinatura"  myClass={`blue  ${visible}`}>Assine Agora</Button>
-        <Link component={Button}  to="/login" className="link">
-        Entrar
+        <Button  href="/sing-up"  className={`blue  ${visible}`}>
+          Assine Agora
+        </Button>
+        <Link component={Button} to="/login" className="link">
+          Entrar
         </Link>
       </Navigation>
     </Container>

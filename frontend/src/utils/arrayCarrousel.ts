@@ -8,7 +8,7 @@ export const Recomendado = [
   "phinFerb",
   "ToyStory4",
   "Frozen2",
-  "AvengersEndGame"
+  "AvengersEndGame",
 ];
 export const Lançamentos = [
   "WandaVision",
@@ -20,7 +20,7 @@ export const Lançamentos = [
   "StarWars",
   "XMenWolverine",
   "Mulan",
-  "AvengersEndGame"
+  "AvengersEndGame",
 ];
 export const Originals = [
   "StarWars",
@@ -33,7 +33,6 @@ export const Originals = [
   "XMenWolverine",
   "ToyStory4",
   "Soul",
-
 ];
 export const Populares = [
   "Violetta",
@@ -45,5 +44,17 @@ export const Populares = [
   "phinFerb",
   "Frozen2",
   "Mulan",
-  "AvengersEndGame"
+  "AvengersEndGame",
+];
+export const Marvel = [
+  "AvengersEndGame",
+  "WandaVision",
+  "XMenWolverine",
+  "AvengersEndGame",
+  "WandaVision",
+  "XMenWolverine",
+  "AvengersEndGame",
+  "WandaVision",
+  "XMenWolverine",
+  "AvengersEndGame",
 ];

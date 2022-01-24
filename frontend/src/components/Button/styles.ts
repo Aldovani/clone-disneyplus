@@ -22,7 +22,7 @@ export const ContainerButton = styled.a`
     background: ${(props) => props.theme.colors.primary};
     border-color: ${(props) => props.theme.colors.primary};
 
-    :hover {
+    &:hover {
       color: white;
       background-color: #0063e5;
     }

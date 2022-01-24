@@ -1,16 +1,20 @@
-import React from "react";
+import React,{InputHTMLAttributes} from "react";
+import { useHistory } from "react-router-dom";
 
 import { ContainerButton } from "./styles";
 
-type ButtonProps = {
-  myClass?: string;
-  href?: string;
-};
-const Button: React.FC<ButtonProps> = ({ href, myClass, children }) => {
+interface ButtonProps extends InputHTMLAttributes<HTMLButtonElement> {
+  href: string;
+  children: React.ReactNode;
+  inPage?: string;
+}
+const Button: React.FC<ButtonProps> = ({ href, className, children,inPage }) => {
+  const history = useHistory();
   return (
-    <ContainerButton 
-      href={href}
-      className={myClass}
+    <ContainerButton
+      onClick={() => history.push(href)}
+      className={className}
+      href={inPage}
     >
       {children}
     </ContainerButton>

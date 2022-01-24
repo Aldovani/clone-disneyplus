@@ -15,7 +15,7 @@ const ButtonBottom: React.FC = () => {
   }, []);
   return (
     <Container className={visible}>
-      <Button href="#Assinatura" myClass={`blue sm`}>Assine Agora</Button>
+      <Button   href="/sing-up" className="blue sm">Assine Agora</Button>
     </Container>
   );
 };

@@ -5,13 +5,12 @@ import ButtonBottom from "../../components/ButtonBottom";
 import { Header } from "../../components/Header";
 import * as Com from "./styles";
 
-
 const HomePage: React.FC = () => {
   return (
     <Com.Container>
       <Header />
-      <Com.ContainerMain >
-        <Com.Banner  id="Assinatura"/>
+      <Com.ContainerMain>
+        <Com.Banner id="Assinatura" />
 
         <Com.ContainerMeta>
           <Com.SubTitle>
@@ -23,12 +22,14 @@ const HomePage: React.FC = () => {
             alt="Combo Disney+ e Star+"
             title="Combo Disney+ e Star+"
           />
-          <Button myClass="full blue">Assine Por R$ 45,90*</Button>
+          <Button className="full blue" href="/sing-up">
+            Assine Por R$ 45,90*
+          </Button>
           <span>
             *O preço pode variar caso a assinatura seja feita através de outras
             plataformas.
           </span>
-          <Link to="/home" className="link">
+          <Link to="/sing-up" className="link">
             Assinar somente o Disney+
           </Link>
           <p className="price">R$ 27,90/mês* ou R$ 279,90/ano à vista*</p>
@@ -67,13 +68,15 @@ const HomePage: React.FC = () => {
         </Com.ContainerOriginal>
 
         <Com.ContainerDownload>
-          
-
           <picture>
-            <source media="(max-width: 750px)" className="picture" srcSet="/assets/images/downloadMd.png" />
+            <source
+              media="(max-width: 750px)"
+              className="picture"
+              srcSet="/assets/images/downloadMd.png"
+            />
             <img src="/assets/images/download.png" className="picture" alt="" />
           </picture>
-          <Com.BannerDownLoad  src="" />
+          <Com.BannerDownLoad src="" />
           <Com.BannerDownLoad className="downloadMd" src="" />
           <div className="download">
             <h2>Baixe filmes e séries</h2>
@@ -111,7 +114,9 @@ const HomePage: React.FC = () => {
               ilimitado a filmes, séries de sucesso e esportes ao vivo com a
               ESPN, para ver onde e como quiser.
             </p>
-            <Button myClass="blue md">Quero Assinar</Button>
+            <Button className="blue md" href="/sing-up">
+              Quero Assinar
+            </Button>
           </div>
           <img src="/assets/images/banner.jpg" alt="" />
         </Com.ContainerDevices>
@@ -156,10 +161,10 @@ const HomePage: React.FC = () => {
             </div>
           </Com.Devices>
         </Com.ContainerDevice>
-      
-        <ButtonBottom/>
+
+        <ButtonBottom />
       </Com.ContainerMain>
-      
+
       <Com.Footer>
         <img
           src="https://cannonball-cdn.bamgrid.com/assets/originals/logo-nopad.svg"
