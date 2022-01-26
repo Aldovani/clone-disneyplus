@@ -9,7 +9,7 @@ const app = express();
 const routes = require("./routes");
 const errorHandle = require("./src/errors/handle");
 mongoose.connect(
-  "mongodb+srv://aldovani:aldovani@cluster0.2hmzw.mongodb.net/disneyplus?retryWrites=true&w=majority",
+  process.env.MONGO_URI,
   { useNewUrlParser: true }
 );
 
